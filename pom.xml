@@ -26,9 +26,9 @@
     </licenses>
 
     <scm>
-        <url>git@github.com:JanBessai/idris-java-rts.git</url>
-        <connection>scm:git:git@github.com:JanBessai/idris-java-rts.git</connection>
-        <developerConnection>scm:git:git@github.com:JanBessai/idris-java-rts.git</developerConnection>
+        <url>scm:git:https://github.com/JanBessai/idris-java-rts.git</url>
+        <connection>scm:git:https://github.com/JanBessai/idris-java-rts.git</connection>
+        <developerConnection>scm:git:https://github.com/JanBessai/idris-java-rts.git</developerConnection>
     </scm>
 
     <developers>
