@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -10,7 +9,7 @@
 
     <groupId>org.idris-lang</groupId>
     <artifactId>idris</artifactId>
-    <version>0.9.8.1-SNAPSHOT</version>
+    <version>0.9.8.1</version>
     <packaging>jar</packaging>
 
     <name>Idris Java RTS</name>
@@ -29,7 +28,8 @@
         <url>scm:git:https://github.com/JanBessai/idris-java-rts.git</url>
         <connection>scm:git:https://github.com/JanBessai/idris-java-rts.git</connection>
         <developerConnection>scm:git:https://github.com/JanBessai/idris-java-rts.git</developerConnection>
-    </scm>
+      <tag>idris-0.9.8.1</tag>
+  </scm>
 
     <developers>
         <developer>
