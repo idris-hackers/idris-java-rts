@@ -728,202 +728,202 @@ public class PrimFn {
         return res;
     }
     
-    public static int LLt(byte x, byte y) {
-        return (x < y ? 1 : 0);
-    }
-    public static int LLt(char x, char y) {
-        return (x < y ? 1 : 0);
-    } 
-    public static int LLt(short x, short y) {
-        return (x < y ? 1 : 0);
-    }
-    public static int LLt(int x, int y) {
-        return (x < y ? 1 : 0);
-    }
-    public static int LLt(long x, long y) {
-        return (x < y ? 1 : 0);
-    }
     public static double LLt(double x, double y) {
         return (x < y ? 1 : 0);
     }
     public static int LLt(BigInteger x, BigInteger y) {
         return (x.compareTo(y) < 0 ? 1 : 0);
     }
+    public static int LLt(byte x, byte y) {
+        return ((x < y) ^ (x < 0) ^ (y < 0)  ? 1 : 0);
+    }
+    public static int LLt(char x, char y) {
+        return ((x < y) ^ (x < 0) ^ (y < 0)  ? 1 : 0);
+    } 
+    public static int LLt(short x, short y) {
+        return ((x < y) ^ (x < 0) ^ (y < 0)  ? 1 : 0);
+    }
+    public static int LLt(int x, int y) {
+        return ((x < y) ^ (x < 0) ^ (y < 0) ? 1 : 0);
+    }
+    public static int LLt(long x, long y) {
+        return ((x < y) ^ (x < 0l) ^ (y < 0l) ? 1 : 0);
+    }
     public static byte[] LLt(byte[] x, byte[] y) {
         byte[] res = new byte[x.length];
         for (int i = 0; i < x.length; ++i) {
-            res[i] = (byte)(x[i] < y[i] ? -1 : 0);
+            res[i] = (byte)((x[i] < y[i]) ^ (x[i] < 0) ^ (y[i] < 0) ? -1 : 0);
         }
         return res;
     }
     public static short[] LLt(short[] x, short[] y) {
         short[] res = new short[x.length];
         for (int i = 0; i < x.length; ++i) {
-            res[i] = (short)(x[i] < y[i] ? -1 : 0);
+            res[i] = (short)((x[i] < y[i]) ^ (x[i] < 0) ^ (y[i] < 0) ? -1 : 0);
         }
         return res;
     }
     public static int[] LLt(int[] x, int[] y) {
         int[] res = new int[x.length];
         for (int i = 0; i < x.length; ++i) {
-            res[i] = (x[i] < y[i] ? -1 : 0);
+            res[i] = ((x[i] < y[i]) ^ (x[i] < 0) ^ (y[i] < 0) ? -1 : 0);
         }
         return res;
     }
     public static long[] LLt(long[] x, long[] y) {
         long[] res = new long[x.length];
         for (int i = 0; i < x.length; ++i) {
-            res[i] = (x[i] < y[i] ? -1 : 0);
+            res[i] = ((x[i] < y[i]) ^ (x[i] < 0l) ^ (y[i] < 0l) ? -1l : 0l);
         }
         return res;
     }
     
-    public static int LLe(byte x, byte y) {
-        return (x <= y ? 1 : 0);
-    }
-    public static int LLe(char x, char y) {
-        return (x <= y ? 1 : 0);
-    }
-    public static int LLe(short x, short y) {
-        return (x <= y ? 1 : 0);
-    }
-    public static int LLe(int x, int y) {
-        return (x <= y ? 1 : 0);
-    }
-    public static int LLe(long x, long y) {
-        return (x <= y ? 1 : 0);
-    }
     public static double LLe(double x, double y) {
         return (x <= y ? 1 : 0);
     }
     public static int LLe(BigInteger x, BigInteger y) {
         return (x.compareTo(y) <= 0 ? 1 : 0);
     }
+    public static int LLe(byte x, byte y) {
+        return ((x <= y) ^ (x < 0) ^ (y < 0) ? 1 : 0);
+    }
+    public static int LLe(char x, char y) {
+        return ((x <= y) ^ (x < 0l) ^ (y < 0l) ? 1 : 0);
+    }
+    public static int LLe(short x, short y) {
+        return ((x <= y) ^ (x < 0) ^ (y < 0) ? 1 : 0);
+    }
+    public static int LLe(int x, int y) {
+        return ((x <= y) ^ (x < 0) ^ (y < 0) ? 1 : 0);
+    }
+    public static int LLe(long x, long y) {
+        return ((x <= y) ^ (x < 0l) ^ (y < 0l) ? 1 : 0);
+    }
     public static byte[] LLe(byte[] x, byte[] y) {
         byte[] res = new byte[x.length];
         for (int i = 0; i < x.length; ++i) {
-            res[i] = (byte)(x[i] <= y[i] ? -1 : 0);
+            res[i] = (byte)((x[i] <= y[i]) ^ (x[i] < 0) ^ (y[i] < 0) ? -1 : 0);
         }
         return res;
     }
     public static short[] LLe(short[] x, short[] y) {
         short[] res = new short[x.length];
         for (int i = 0; i < x.length; ++i) {
-            res[i] = (short)(x[i] <= y[i] ? -1 : 0);
+            res[i] = (short)((x[i] <= y[i]) ^ (x[i] < 0) ^ (y[i] < 0) ? -1 : 0);
         }
         return res;
     }
     public static int[] LLe(int[] x, int[] y) {
         int[] res = new int[x.length];
         for (int i = 0; i < x.length; ++i) {
-            res[i] = (x[i] <= y[i] ? -1 : 0);
+            res[i] = ((x[i] <= y[i]) ^ (x[i] < 0) ^ (y[i] < 0) ? -1 : 0);
         }
         return res;
     }
     public static long[] LLe(long[] x, long[] y) {
         long[] res = new long[x.length];
         for (int i = 0; i < x.length; ++i) {
-            res[i] = (x[i] <= y[i] ? -1 : 0);
+            res[i] = ((x[i] <= y[i]) ^ (x[i] < 0) ^ (y[i] < 0l) ? -1l : 0l);
         }
         return res;
     }
     
-    public static int LGt(byte x, byte y) {
-        return (x > y ? 1 : 0);
-    }    
-    public static int LGt(char x, char y) {
-        return (x > y ? 1 : 0);
-    }  
-    public static int LGt(short x, short y) {
-        return (x > y ? 1 : 0);
-    }
-    public static int LGt(int x, int y) {
-        return (x > y ? 1 : 0);
-    }
-    public static int LGt(long x, long y) {
-        return (x > y ? 1 : 0);
-    }
     public static double LGt(double x, double y) {
         return (x > y ? 1 : 0);
     }
     public static int LGt(BigInteger x, BigInteger y) {
         return (x.compareTo(y) > 0 ? 1 : 0);
     }
+    public static int LGt(byte x, byte y) {
+        return ((x > y) ^ (x < 0) ^ (y < 0) ? 1 : 0);
+    }    
+    public static int LGt(char x, char y) {
+        return ((x > y) ^ (x < 0) ^ (y < 0) ? 1 : 0);
+    }  
+    public static int LGt(short x, short y) {
+        return ((x > y) ^ (x < 0) ^ (y < 0) ? 1 : 0);
+    }
+    public static int LGt(int x, int y) {
+        return ((x > y) ^ (x < 0) ^ (y < 0) ? 1 : 0);
+    }
+    public static int LGt(long x, long y) {
+        return ((x > y) ^ (x < 0l) ^ (y < 0l) ? 1 : 0);
+    }
     public static byte[] LGt(byte[] x, byte[] y) {
         byte[] res = new byte[x.length];
         for (int i = 0; i < x.length; ++i) {
-            res[i] = (byte)(x[i] > y[i] ? -1 : 0);
+            res[i] = (byte)((x[i] > y[i]) ^ (x[i] < 0) ^ (y[i] < 0) ? -1 : 0);
         }
         return res;
     }
     public static short[] LGt(short[] x, short[] y) {
         short[] res = new short[x.length];
         for (int i = 0; i < x.length; ++i) {
-            res[i] = (short)(x[i] > y[i] ? -1 : 0);
+            res[i] = (short)((x[i] > y[i]) ^ (x[i] < 0) ^ (y[i] < 0) ? -1 : 0);
         }
         return res;
     }
     public static int[] LGt(int[] x, int[] y) {
         int[] res = new int[x.length];
         for (int i = 0; i < x.length; ++i) {
-            res[i] = (x[i] > y[i] ? -1 : 0);
+            res[i] = ((x[i] > y[i]) ^ (x[i] < 0) ^ (y[i] < 0) ? -1 : 0);
         }
         return res;
     }
     public static long[] LGt(long[] x, long[] y) {
         long[] res = new long[x.length];
         for (int i = 0; i < x.length; ++i) {
-            res[i] = (x[i] > y[i] ? -1 : 0);
+            res[i] = ((x[i] > y[i]) ^ (x[i] < 0l) ^ (y[i] < 0l) ? -1l : 0l);
         }
         return res;
     }
     
-    public static int LGe(byte x, byte y) {
-        return (x >= y ? 1 : 0);
-    }
-    public static int LGe(char x, char y) {
-        return (x >= y ? 1 : 0);
-    }
-    public static int LGe(short x, short y) {
-        return (x >= y ? 1 : 0);
-    }
-    public static int LGe(int x, int y) {
-        return (x >= y ? 1 : 0);
-    }
-    public static int LGe(long x, long y) {
-        return (x >= y ? 1 : 0);
-    }
     public static double LGe(double x, double y) {
         return (x >= y ? 1 : 0);
     }
     public static int LGe(BigInteger x, BigInteger y) {
         return (x.compareTo(y) >= 0 ? 1 : 0);
     }
+    public static int LGe(byte x, byte y) {
+        return ((x >= y) ^ (x < 0) ^ (y < 0) ? 1 : 0);
+    }
+    public static int LGe(char x, char y) {
+        return ((x >= y) ^ (x < 0) ^ (y < 0) ? 1 : 0);
+    }
+    public static int LGe(short x, short y) {
+        return ((x >= y) ^ (x < 0) ^ (y < 0) ? 1 : 0);
+    }
+    public static int LGe(int x, int y) {
+        return ((x >= y) ^ (x < 0) ^ (y < 0) ? 1 : 0);
+    }
+    public static int LGe(long x, long y) {
+        return ((x >= y) ^ (x < 0l) ^ (y < 0l) ? 1 : 0);
+    }
     public static byte[] LGe(byte[] x, byte[] y) {
         byte[] res = new byte[x.length];
         for (int i = 0; i < x.length; ++i) {
-            res[i] = (byte)(x[i] >= y[i] ? -1 : 0);
+            res[i] = (byte)((x[i] >= y[i]) ^ (x[i] < 0) ^ (y[i] < 0) ? -1 : 0);
         }
         return res;
     }
     public static short[] LGe(short[] x, short[] y) {
         short[] res = new short[x.length];
         for (int i = 0; i < x.length; ++i) {
-            res[i] = (short)(x[i] >= y[i] ? -1 : 0);
+            res[i] = (short)((x[i] >= y[i]) ^ (x[i] < 0) ^ (y[i] < 0) ? -1 : 0);
         }
         return res;
     }
     public static int[] LGe(int[] x, int[] y) {
         int[] res = new int[x.length];
         for (int i = 0; i < x.length; ++i) {
-            res[i] = (x[i] >= y[i] ? -1 : 0);
+            res[i] = ((x[i] >= y[i]) ^ (x[i] < 0) ^ (y[i] < 0) ? -1 : 0);
         }
         return res;
     }
     public static long[] LGe(long[] x, long[] y) {
         long[] res = new long[x.length];
         for (int i = 0; i < x.length; ++i) {
-            res[i] = (x[i] >= y[i] ? -1 : 0);
+            res[i] = ((x[i] >= y[i]) ^ (x[i] < 0l) ^ (y[i] < 0l)  ? -1l : 0l);
         }
         return res;
     }
