@@ -9,7 +9,7 @@
 
     <groupId>org.idris-lang</groupId>
     <artifactId>idris</artifactId>
-    <version>0.9.8.2-SNAPSHOT</version>
+    <version>0.9.9-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Idris Java RTS</name>
@@ -25,9 +25,9 @@
     </licenses>
 
     <scm>
-        <url>scm:git:https://github.com/JanBessai/idris-java-rts.git</url>
-        <connection>scm:git:https://github.com/JanBessai/idris-java-rts.git</connection>
-        <developerConnection>scm:git:https://github.com/JanBessai/idris-java-rts.git</developerConnection>
+        <url>scm:git:https://github.com/idris-hackers/idris-java-rts.git</url>
+        <connection>scm:git:https://github.com/idris-hackers/idris-java-rts.git</connection>
+        <developerConnection>scm:git:https://github.com/idris-hackers/idris-java-rts.git</developerConnection>
       <tag>HEAD</tag>
   </scm>
 
