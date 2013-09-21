@@ -310,6 +310,16 @@ public class Prelude {
     }
 
     /**
+     * Check if a string is {@code null}
+     *
+     * @param s string to check
+     * @return 1 if the string is {@code null} 0 otherwise
+     */
+    public static int isNullString(String s) {
+        return isNull(s);
+    }
+
+    /**
      * Allocate raw memory.
      * 
      * @param size number of bytes to allocate
