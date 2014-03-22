@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigInteger;
+import java.nio.ByteBuffer;
 
 /**
  * Primitive backend functions.
@@ -1636,6 +1637,52 @@ public class PrimFn {
     public static OutputStream LStdErr() {
         return System.err;
     }
+    public static ByteBuffer LAllocate(long capacity) {
+        return ByteBuffer.allocate((int)capacity);
+    }
+    public static ByteBuffer LAppendBuffer(ByteBuffer to, long toSize, long count, long fromSize, long fromOffset, ByteBuffer from) {
+        ByteBuffer resultBuffer = ByteBuffer.allocate((int)(toSize + (fromSize - fromOffset) * count));
+        
+        // copy to buffer
+        to.mark();
+        to.position(0);
+        ByteBuffer toSlice = to.slice();
+        to.reset();
+        toSlice.limit((int)toSize);
+        resultBuffer.put(toSlice);
+                
+        // copy from buffer
+        from.mark();
+        from.position((int)fromOffset);
+        ByteBuffer fromSlice = from.slice();
+        from.reset();
+        fromSlice.limit((int)fromSize);
+        
+        for (long i = 0; i < count; ++i) {
+            resultBuffer.put(fromSlice);
+            fromSlice.rewind();
+        }
+        
+        return resultBuffer;
+    }
+    public static ByteBuffer LAppend(ByteOrder endianness, ByteBuffer buffer,  byte data, long count) {
+        ByteBuffer targetBuffer;
+        if (buffer.capacity() - buffer.limit() >= count) {
+            buffer.mark();
+            buffer.position(0);
+            targetBuffer = buffer.slice();
+            buffer.reset();
+        } else {
+            targetBuffer = ByteBuffer.allocate(2 * (buffer.limit() + (int)count));
+            buffer.mark();
+            buffer.position(0);
+            targetBuffer.put(buffer);
+            buffer.reset();
+        }
+        for (long i = 0; i <= count; ++i) {
+            targetBuffer.put(data);
+        }
+    }    
     public static Thread LVMPtr() {
         return Thread.currentThread();
     }
