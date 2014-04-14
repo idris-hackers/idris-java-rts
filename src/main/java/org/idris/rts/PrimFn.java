@@ -1604,11 +1604,7 @@ public class PrimFn {
         System.out.print(x);
     }
     public static String LReadStr(Object x) {
-        try {
-            return Prelude.idris_readStr(x);
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
+        return Prelude.idris_readStr(x);
     }
 
     public static char LStrHead(String x) {
