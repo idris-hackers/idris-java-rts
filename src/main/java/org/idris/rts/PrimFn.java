@@ -2,11 +2,11 @@
  */
 package org.idris.rts;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 
 /**
  * Primitive backend functions.
@@ -1640,45 +1640,115 @@ public class PrimFn {
         ByteBuffer resultBuffer = ByteBuffer.allocate((int)(toSize + (fromSize - fromOffset) * count));
         
         // copy to buffer
-        to.mark();
+        int oldPos = to.position();
         to.position(0);
         ByteBuffer toSlice = to.slice();
-        to.reset();
+        to.position(oldPos);
         toSlice.limit((int)toSize);
         resultBuffer.put(toSlice);
                 
         // copy from buffer
-        from.mark();
+        oldPos = from.position();
         from.position((int)fromOffset);
         ByteBuffer fromSlice = from.slice();
-        from.reset();
+        from.position(oldPos);
         fromSlice.limit((int)fromSize);
         
         for (long i = 0; i < count; ++i) {
             resultBuffer.put(fromSlice);
-            fromSlice.rewind();
+            fromSlice.position(0);
         }
         
         return resultBuffer;
     }
-    public static ByteBuffer LAppend(ByteOrder endianness, ByteBuffer buffer,  byte data, long count) {
+    private static ByteBuffer prepareBuffer(ByteBuffer original, long position, long elem_size, long count) {
         ByteBuffer targetBuffer;
-        if (buffer.capacity() - buffer.limit() >= count) {
-            buffer.mark();
-            buffer.position(0);
-            targetBuffer = buffer.slice();
-            buffer.reset();
+        long newSize = position + elem_size * count;
+        if (original.capacity() - position >= newSize) {
+            targetBuffer = original;
+            targetBuffer.limit((int)newSize);
         } else {
-            targetBuffer = ByteBuffer.allocate(2 * (buffer.limit() + (int)count));
-            buffer.mark();
-            buffer.position(0);
-            targetBuffer.put(buffer);
-            buffer.reset();
+            targetBuffer = ByteBuffer.allocate((int)newSize);
+            int oldPos = original.position();
+            original.position(0);
+            targetBuffer.put(original);
+            original.position(oldPos);
         }
-        for (long i = 0; i <= count; ++i) {
-            targetBuffer.put(data);
+        targetBuffer.position((int)position);
+        return targetBuffer;
+    }
+    private static ByteBuffer prepareCopyBuffer(ByteOrder endianness, int size) {
+        final ByteBuffer copyBuffer = ByteBuffer.allocate(size);
+        copyBuffer.order(endianness);
+        return copyBuffer;
+    }
+    private static ByteBuffer appendCopyBuffer(ByteBuffer targetBuffer, ByteBuffer copyBuffer, long count) {
+        for (long i = 0; i < count; ++i) {
+            copyBuffer.position(0);
+            targetBuffer.put(copyBuffer);
         }
-    }    
+        return targetBuffer;
+    }
+    
+    public static ByteBuffer LAppend(ByteOrder endianness, ByteBuffer buffer, long position, long count, byte value) {
+        final ByteBuffer targetBuffer = prepareBuffer(buffer, position, 1, count);
+        for (long i = 0; i < count; ++i) {
+            targetBuffer.put(value);
+        }
+        return targetBuffer;
+    }
+    public static ByteBuffer LAppend(ByteOrder endianness, ByteBuffer buffer, long position, long count, short value) {
+        final ByteBuffer targetBuffer = prepareBuffer(buffer, position, 2, count);
+        final ByteBuffer copyBuffer = prepareCopyBuffer(endianness, 2);
+        copyBuffer.putShort(value);
+        return appendCopyBuffer(targetBuffer, copyBuffer, count);
+    }
+    public static ByteBuffer LAppend(ByteOrder endianness, ByteBuffer buffer, long position, long count, int value) {
+        final ByteBuffer targetBuffer = prepareBuffer(buffer, position, 4, count);
+        final ByteBuffer copyBuffer = prepareCopyBuffer(endianness, 4);
+        copyBuffer.putInt(value);
+        return appendCopyBuffer(targetBuffer, copyBuffer, count);
+    }
+    public static ByteBuffer LAppend(ByteOrder endianness, ByteBuffer buffer, long position, long count, long value) {
+        final ByteBuffer targetBuffer = prepareBuffer(buffer, position, 8, count);
+        final ByteBuffer copyBuffer = prepareCopyBuffer(endianness, 8);
+        copyBuffer.putLong(value);
+        return appendCopyBuffer(targetBuffer, copyBuffer, count);
+    }
+    public static byte LPeekIT8(ByteOrder endianness, ByteBuffer buffer, long position) {
+        return buffer.get((int)position);
+    }
+    public static short LPeekIT16(ByteOrder endianness, ByteBuffer buffer, long position) {
+        ByteOrder oldOrder = buffer.order();
+        buffer.order(endianness);
+        short result = buffer.getShort((int)position);
+        buffer.order(oldOrder);
+        return result;
+    }
+    public static int LPeekIT32(ByteOrder endianness, ByteBuffer buffer, long position) {
+        ByteOrder oldOrder = buffer.order();
+        buffer.order(endianness);
+        int result = buffer.getInt((int)position);
+        buffer.order(oldOrder);
+        return result;
+    }
+    public static long LPeekIT64(ByteOrder endianness, ByteBuffer buffer, long position) {
+        ByteOrder oldOrder = buffer.order();
+        buffer.order(endianness);
+        long result = buffer.getLong((int)position);
+        buffer.order(oldOrder);
+        return result;
+    }
+    
+    public static String LSystemInfo(int index) {
+        switch (index) {
+            case 0: return "java";
+            case 1: return System.getProperty("os.name");
+            case 2: return System.getProperties().toString();
+            default: return "";
+        }
+    }
+    
     public static Thread LVMPtr() {
         return Thread.currentThread();
     }
