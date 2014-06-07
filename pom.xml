@@ -9,7 +9,7 @@
 
     <groupId>org.idris-lang</groupId>
     <artifactId>idris</artifactId>
-    <version>0.9.14-SNAPSHOT</version>
+    <version>0.9.14</version>
     <packaging>jar</packaging>
 
     <name>Idris Java RTS</name>
