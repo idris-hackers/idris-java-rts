@@ -1604,6 +1604,12 @@ public class PrimFn {
     public static void LPrintStr(String x) {
         System.out.print(x);
     }
+
+    public static Object LWriteStr(Object world, String x) {
+        System.out.print(x);
+	return null;
+    }
+    
     public static String LReadStr(Object x) {
         return Prelude.idris_readStr(x);
     }
@@ -1747,6 +1753,11 @@ public class PrimFn {
             case 2: return System.getProperties().toString();
             default: return "";
         }
+    }
+
+    public static Object LExternal() {
+	//FIXME: need to correctly handle this in the code generator
+	return null;
     }
     
     public static Thread LVMPtr() {
