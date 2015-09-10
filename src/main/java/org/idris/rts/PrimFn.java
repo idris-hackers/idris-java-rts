@@ -2,6 +2,7 @@
  */
 package org.idris.rts;
 
+import java.lang.RuntimeException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigInteger;
@@ -1611,7 +1612,12 @@ public class PrimFn {
     }
     
     public static String LReadStr(Object x) {
-        return Prelude.idris_readStr(x);
+	try {
+	    return new java.io.BufferedReader(
+		new java.io.InputStreamReader(System.in)).readLine();
+	} catch (java.io.IOException ioEx) {
+	    throw new RuntimeException(ioEx.getMessage());
+	}
     }
 
     public static char LStrHead(String x) {
