@@ -418,6 +418,26 @@ public class Prelude {
             errorFiles.add(file);
         }
     }
+
+    /**
+     * Write a string to a file handle and return number of bytes written.
+     * 
+     * @param file handle to write to. Has to be a PrintStream or a SeekableByteChannel.
+     * @param string output
+     */
+    public static synchronized int fputStrWithBytesWritten(Object file, String string) {
+        try {
+            if (file instanceof PrintStream) {
+                ((PrintStream) file).print(string);
+            } else if (file instanceof SeekableByteChannel) {
+                ((SeekableByteChannel) file).write(ByteBuffer.wrap(string.getBytes()));
+            }
+	    return string.length();
+        } catch (IOException ex) {
+            errorFiles.add(file);
+	    return 0;
+        }
+    }   
     
     /**
      * Read one char from a file and return it or -1 on end of file or errors.
@@ -528,7 +548,7 @@ public class Prelude {
      * @param o object to check
      * @return 1 if the object is {@code null} 0 otherwise
      */
-    public static int isNull(Object o) {
+    public static int isNull(Object o) {	
         return (o == null ? 1 : 0);
     }
 

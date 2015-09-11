@@ -1620,6 +1620,15 @@ public class PrimFn {
 	}
     }
 
+    public static String LReadFile(Object w, Object file) {
+	return Prelude.idris_readStr(file);
+    }
+
+    public static int LWriteFile(Object w, Object file, String str) {
+	
+	return Prelude.fputStrWithBytesWritten(file, str);
+    }
+    
     public static char LStrHead(String x) {
         return x.charAt(0);
     }
@@ -1760,13 +1769,33 @@ public class PrimFn {
             default: return "";
         }
     }
-
-    public static Object LExternal() {
-	//FIXME: need to correctly handle this in the code generator
-	return null;
-    }
     
     public static Thread LVMPtr() {
         return Thread.currentThread();
     }
+
+    /**
+     * Compare two references for equality.
+     * 
+     * @param reference1 the first reference to compare
+     * @param reference2 the second reference to compare
+     * @return 1 if the two references are equal, 0 otherwise.
+     */
+    public static int LEqManagedPtr(Object reference1, Object reference2) {
+        return (reference1 == reference2 ? 1 : 0);
+    }
+
+    public static Object LNull() {
+	return null;
+    }
+
+    public static Object LRegisterPtr(Object p, int size) {
+	throw new RuntimeException("*** Idris managed pointers are not supported ***");
+    }
+    
+    
+    public static Object LExternal() {
+        return null;
+    }
+
 }
